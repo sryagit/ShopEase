@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopEase - About Us</title>
+<!-- Font Awesome for Social Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
+header { background:#111; color:white; padding:15px 20px; display:flex; align-items:center; position:relative; }
+header a { color:white; text-decoration:none; position:absolute; left:20px; }
+header h1 { text-align:center; flex:1; margin:0; }
+
+.container { max-width:900px; margin:auto; padding:20px; }
+h2 { margin-bottom:15px; text-align:center; }
+.section { background:white; padding:20px; margin-bottom:20px; border-radius:5px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+.section p { margin:10px 0; line-height:1.6; }
+.team { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin-top:10px; }
+.team-member { text-align:center; }
+.team-member img { width:150px; height:150px; object-fit:cover; border-radius:50%; }
+.team-member h4 { margin:10px 0 5px; }
+.team-member p { margin:0; color:gray; font-size:14px; }
+
+/* Floating Social Media Bar */
+.floating-social {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  z-index:1000;
+}
+.social-link {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:50px;
+  height:50px;
+  background:#111;
+  color:white;
+  border-radius:50px;
+  text-decoration:none;
+  font-size:24px;
+  transition: all 0.3s ease;
+  overflow:hidden;
+  white-space:nowrap;
+  padding:0 10px;
+}
+.social-link i {
+  display:inline-block;
+  width:24px;
+  text-align:center;
+}
+.social-link .social-text {
+  display:none;
+  margin-left:10px;
+  font-size:16px;
+}
+.social-link:hover {
+  width:150px;
+  justify-content:flex-start;
+  background:#f4c542;
+  color:#111;
+}
+.social-link:hover .social-text {
+  display:inline;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">← Home</a>
+  <h1>ShopEase</h1>
+</header>
+
+<div class="container">
+  <h2>About Us</h2>
+
+  <div class="section">
+    <h3>Our Story</h3>
+    <p>ShopEase was founded with a mission to make online shopping simple, fast, and reliable. We strive to provide the best products at competitive prices while ensuring a seamless shopping experience for our customers.</p>
+  </div>
+
+  <div class="section">
+    <h3>Our Mission</h3>
+    <p>To create a trusted online shopping platform that connects customers with high-quality products and provides exceptional customer service every step of the way.</p>
+  </div>
+
+  <div class="section">
+    <h3>Our Vision</h3>
+    <p>To become the leading online retail platform in India by combining technology, innovation, and customer satisfaction.</p>
+  </div>
+
+  <div class="section">
+    <h3>Meet Our Team</h3>
+    <div class="team">
+      <div class="team-member">
+        <h4>Suraj Yadav</h4>
+        <p>Founder & CEO</p>
+      </div>
+      <div class="team-member">
+        <h4>Saurabh Kumar</h4>
+        <p>CTO</p>
+      </div>
+      <div class="team-member">
+        <h4>Anitha Singh</h4>
+        <p>Marketing Head</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Social Media Icons -->
+<div class="floating-social">
+  <a href="https://www.facebook.com/" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i><span class="social-text">Facebook</span></a>
+  <a href="https://www.instagram.com/" target="_blank" class="social-link"><i class="fab fa-instagram"></i><span class="social-text">Instagram</span></a>
+  <a href="https://www.twitter.com/" target="_blank" class="social-link"><i class="fab fa-twitter"></i><span class="social-text">Twitter</span></a>
+  <a href="https://wa.me/911234567890" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i><span class="social-text">WhatsApp</span></a>
+</div>
+
+</body>
+</html>

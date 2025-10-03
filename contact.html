@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopEase - Contact</title>
+<!-- Font Awesome CDN for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: Arial,sans-serif; margin:0; padding:0; background:#f9f9f9; }
+header { background:#111; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
+header a { color:white; text-decoration:none; margin-left:15px; }
+h1 { margin:0; }
+.container { max-width:800px; margin:auto; padding:20px; }
+h2 { margin-bottom:20px; }
+.contact-info, .contact-form { background:white; padding:20px; margin-bottom:20px; border-radius:5px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+.contact-info p { margin:10px 0; }
+.contact-form input, .contact-form textarea { width:100%; padding:10px; margin:10px 0; border-radius:4px; border:1px solid #ccc; }
+.contact-form button { padding:10px 20px; background:#111; color:white; border:none; border-radius:4px; cursor:pointer; }
+.contact-form button:hover { background:#f4c542; color:#111; }
+.map-container { border-radius:5px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.1); margin-bottom:20px; }
+.map-container iframe { width:100%; height:300px; border:0; }
+
+/* Floating Social Media Bar */
+.floating-social {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  z-index:1000;
+}
+.social-link {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:50px;
+  height:50px;
+  background:#111;
+  color:white;
+  border-radius:50px;
+  text-decoration:none;
+  font-size:24px;
+  transition: all 0.3s ease;
+  overflow:hidden;
+  white-space:nowrap;
+  padding:0 10px;
+}
+.social-link i {
+  display:inline-block;
+  width:24px;
+  text-align:center;
+}
+.social-link .social-text {
+  display:none;
+  margin-left:10px;
+  font-size:16px;
+}
+.social-link:hover {
+  width:150px;
+  justify-content:flex-start;
+  background:#f4c542;
+  color:#111;
+}
+.social-link:hover .social-text {
+  display:inline;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">← Home</a>
+  <div>
+    <a href="cart.html">Cart 🛒 <span id="cart-count">0</span></a>
+  </div>
+</header>
+
+<div class="container">
+  <h2>Contact Us</h2>
+
+  <div class="contact-info">
+    <p><strong>Email:</strong> support@shopease.com</p>
+    <p><strong>Phone:</strong> +91 12345 67890</p>
+    <p><strong>Address:</strong> 123 ShopEase Street, Mumbai, India</p>
+  </div>
+
+  <!-- Google Map -->
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.854796085136!2d72.83343031502299!3d18.92211328736916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c63acb7bd011%3A0x6c3316f9f60a7d6c!2sGateway%20of%20India%2C%20Mumbai%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000"
+      allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <div class="contact-form">
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<!-- Floating Social Media Icons -->
+<div class="floating-social">
+  <a href="https://www.facebook.com/" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i><span class="social-text">Facebook</span></a>
+  <a href="https://www.instagram.com/" target="_blank" class="social-link"><i class="fab fa-instagram"></i><span class="social-text">Instagram</span></a>
+  <a href="https://www.twitter.com/" target="_blank" class="social-link"><i class="fab fa-twitter"></i><span class="social-text">Twitter</span></a>
+  <a href="https://wa.me/911234567890" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i><span class="social-text">WhatsApp</span></a>
+</div>
+
+<script>
+// Persistent cart
+let cart = [];
+if(localStorage.getItem('cart')){
+  cart = JSON.parse(localStorage.getItem('cart'));
+}
+document.getElementById('cart-count').innerText = cart.length;
+
+// Contact form submission
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  alert("Thank you! Your message has been sent.");
+  this.reset();
+});
+</script>
+
+</body>
+</html>

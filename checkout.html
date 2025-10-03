@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopEase - Checkout</title>
+<style>
+body { font-family: Arial,sans-serif; margin:0; padding:0; background:#f9f9f9; }
+header { display:flex; justify-content:space-between; align-items:center; background:#111; color:white; padding:15px 20px; }
+header a { color:white; text-decoration:none; }
+.container { max-width:800px; margin:auto; padding:20px; }
+h2 { margin-bottom:10px; }
+.cart-items { margin-bottom:20px; }
+.cart-item { display:flex; justify-content:space-between; align-items:center; background:white; padding:10px; margin-bottom:10px; border-radius:5px; }
+.cart-item img { width:60px; height:60px; object-fit:cover; border-radius:5px; }
+.total { font-weight:bold; text-align:right; margin-bottom:20px; }
+form input, form textarea { width:100%; padding:8px; margin:5px 0; border-radius:4px; border:1px solid #ccc; }
+form button { padding:10px 15px; background:green; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:10px; }
+form button:hover { background:darkgreen; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">← Home</a>
+  <div>Cart 🛒 <span id="cart-count">0</span></div>
+</header>
+
+<div class="container">
+<h2>Checkout</h2>
+
+<div class="cart-items" id="cart-items"></div>
+<div class="total" id="cart-total">Total: $0</div>
+
+<h3>Shipping & Payment Info</h3>
+<form id="checkout-form">
+  <input type="text" placeholder="Full Name" required>
+  <input type="email" placeholder="Email" required>
+  <textarea placeholder="Shipping Address" rows="4" required></textarea>
+  <button type="submit">Place Order</button>
+</form>
+</div>
+
+<script>
+// Load cart from localStorage
+let cart = [];
+if(localStorage.getItem('cart')){
+  cart = JSON.parse(localStorage.getItem('cart'));
+}
+updateCartCount();
+renderCart();
+
+function updateCartCount(){
+  document.getElementById('cart-count').innerText = cart.length;
+}
+
+function renderCart(){
+  const cartItems = document.getElementById('cart-items');
+  cartItems.innerHTML = '';
+  let total = 0;
+  cart.forEach(item=>{
+    total += item.price;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <p>${item.name} - $${item.price}</p>
+      </div>
+    `;
+  });
+  document.getElementById('cart-total').innerText = "Total: $" + total;
+}
+
+// Handle checkout form
+document.getElementById('checkout-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  if(cart.length === 0){
+    alert("Your cart is empty!");
+    return;
+  }
+  
+  // Clear cart and update
+  cart = [];
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+  e.target.reset();
+  
+  // Redirect to thank you page
+  window.location.href = "thankyou.html";
+});
+</script>
+
+</body>
+</html>

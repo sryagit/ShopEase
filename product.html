@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopEase - Product</title>
+<style>
+body { font-family: Arial,sans-serif; margin:0; padding:0; background:#f9f9f9; }
+header { display:flex; justify-content:space-between; align-items:center; background:#111; color:white; padding:15px 20px; }
+header a { color:white; text-decoration:none; margin:0 10px; }
+.container { max-width:800px; margin:auto; padding:20px; }
+img { width:100%; max-height:300px; object-fit:cover; border-radius:5px; }
+h2 { margin-top:10px; }
+p { margin:10px 0; }
+.btn { padding:10px 15px; background:#111; color:white; border:none; cursor:pointer; border-radius:4px; }
+.btn:hover { background:#f4c542; color:#111; }
+.product-reviews { margin-top:20px; }
+.review { border-top:1px solid #ddd; padding:5px 0; }
+.review strong { color:#111; }
+.review-form input, .review-form textarea { width:100%; padding:6px; margin:5px 0; }
+.review-form button { padding:8px; background:#111; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:5px; }
+.review-form button:hover { background:#f4c542; color:#111; }
+.stars { display:flex; gap:5px; cursor:pointer; margin:5px 0; }
+.star { font-size:18px; color:gray; }
+.star.selected { color:gold; }
+.avg-rating { font-size:14px; margin-bottom:5px; color:#f4c542; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">← Home</a>
+  <div>
+    <a href="cart.html">Cart 🛒 <span id="cart-count">0</span></a>
+  </div>
+</header>
+
+<div class="container">
+<div class="avg-rating" id="avg-rating">Average Rating: 0 ★</div>
+<h2 id="product-name">Product Name</h2>
+<img id="product-img" src="" alt="">
+<p id="product-price">$0</p>
+<button class="btn" id="addCartBtn">Add to Cart</button>
+
+<div class="product-reviews">
+<h3>Customer Reviews</h3>
+<div class="reviews-list"></div>
+
+<form class="review-form">
+<input type="text" placeholder="Your Name" required>
+<textarea placeholder="Write a review..." required></textarea>
+<div class="stars">
+<span class="star" data-value="1">&#9733;</span>
+<span class="star" data-value="2">&#9733;</span>
+<span class="star" data-value="3">&#9733;</span>
+<span class="star" data-value="4">&#9733;</span>
+<span class="star" data-value="5">&#9733;</span>
+</div>
+<button type="submit">Submit Review</button>
+</form>
+</div>
+</div>
+
+<script>
+// Product data
+const products = {
+  "Product One": {price:25,img:"https://via.placeholder.com/400x300?text=Product+1"},
+  "Product Two": {price:40,img:"https://via.placeholder.com/400x300?text=Product+2"},
+  "Product Three": {price:55,img:"https://via.placeholder.com/400x300?text=Product+3"}
+};
+
+// Load product from URL
+const urlParams = new URLSearchParams(window.location.search);
+const productName = urlParams.get('product');
+const product = products[productName];
+
+// Fill product info
+document.getElementById('product-name').innerText = productName;
+document.getElementById('product-price').innerText = "$"+product.price;
+document.getElementById('product-img').src = product.img;
+
+// Persistent cart
+let cart = [];
+if(localStorage.getItem('cart')){
+  cart = JSON.parse(localStorage.getItem('cart'));
+}
+updateCartCount();
+
+document.getElementById('addCartBtn').addEventListener('click', ()=>{
+  cart.push(product);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  alert(productName+" added to cart!");
+});
+
+function updateCartCount(){
+  document.getElementById('cart-count').innerText = cart.length;
+}
+
+// Review system
+const stars = document.querySelectorAll('.star');
+let selectedRating = 0;
+const reviewsList = document.querySelector('.reviews-list');
+const form = document.querySelector('.review-form');
+const avgDiv = document.getElementById('avg-rating');
+const ratings = [];
+
+stars.forEach((star,index)=>{
+  star.addEventListener('click', ()=>{
+    selectedRating = parseInt(star.dataset.value);
+    stars.forEach(s=>s.classList.remove('selected'));
+    for(let i=0;i<selectedRating;i++) stars[i].classList.add('selected');
+  });
+});
+
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  if(selectedRating===0){ alert("Select rating!"); return; }
+  const name = form.querySelector('input').value;
+  const text = form.querySelector('textarea').value;
+
+  const reviewDiv = document.createElement('div');
+  reviewDiv.classList.add('review');
+  reviewDiv.innerHTML=`<strong>${name}</strong> <span style="color:gold;">${"★".repeat(selectedRating)}${"☆".repeat(5-selectedRating)}</span><p>${text}</p>`;
+  reviewsList.appendChild(reviewDiv);
+
+  ratings.push(selectedRating);
+  const avg = (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1);
+  avgDiv.innerText = `Average Rating: ${avg} ★`;
+
+  form.reset();
+  stars.forEach(s=>s.classList.remove('selected'));
+  selectedRating=0;
+});
+</script>
+
+</body>
+</html>
